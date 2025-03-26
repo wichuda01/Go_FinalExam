@@ -16,7 +16,7 @@ func StartServer() {
 	if err != nil {
 		panic(err)
 	}
-	// fmt.Println(viper.Get("mysql.dsn"))
+	fmt.Println(viper.Get("mysql.dsn"))
 	dsn := viper.GetString("mysql.dsn")
 
 	dialactor := mysql.Open(dsn)
@@ -28,7 +28,9 @@ func StartServer() {
 	fmt.Println("Connection successful")
 	// gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
-
-	NewLandmarkController(router, db)
+	NewCartItemController(router, db)
+	NewCartController(router, db)
+	NewCustomerController(router, db)
+	NewProductController(router, db)
 	router.Run()
 }
